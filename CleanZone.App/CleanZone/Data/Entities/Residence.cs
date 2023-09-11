@@ -8,5 +8,4 @@ public class Residence
     public string Name { get; set; }
     public string UserID { get; set; }
     public IdentityUser User { get; set; }
-
 }

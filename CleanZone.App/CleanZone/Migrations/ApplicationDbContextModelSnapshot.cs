@@ -17,7 +17,7 @@ namespace CleanZone.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -34,15 +34,12 @@ namespace CleanZone.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ResidenceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ResidenciaID")
+                    b.Property<int>("ResidenceID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ResidenceId");
+                    b.HasIndex("ResidenceID");
 
                     b.ToTable("Area");
                 });
@@ -304,7 +301,7 @@ namespace CleanZone.Migrations
                 {
                     b.HasOne("CleanZone.Data.Entities.Residence", "Residence")
                         .WithMany()
-                        .HasForeignKey("ResidenceId")
+                        .HasForeignKey("ResidenceID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
