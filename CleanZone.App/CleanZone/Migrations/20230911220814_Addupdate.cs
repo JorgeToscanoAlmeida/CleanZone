@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CleanZone.Migrations
 {
     /// <inheritdoc />
-    public partial class AddTables : Migration
+    public partial class Addupdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -218,6 +218,26 @@ namespace CleanZone.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CleanLogs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Data = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DivisionId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CleanLogs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CleanLogs_Division_DivisionId",
+                        column: x => x.DivisionId,
+                        principalTable: "Division",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Area_ResidenceID",
                 table: "Area",
@@ -263,6 +283,11 @@ namespace CleanZone.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CleanLogs_DivisionId",
+                table: "CleanLogs",
+                column: "DivisionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Division_AreaId",
                 table: "Division",
                 column: "AreaId");
@@ -292,10 +317,13 @@ namespace CleanZone.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Division");
+                name: "CleanLogs");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Division");
 
             migrationBuilder.DropTable(
                 name: "Area");

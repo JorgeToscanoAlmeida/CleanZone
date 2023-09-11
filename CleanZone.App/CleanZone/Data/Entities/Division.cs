@@ -1,4 +1,6 @@
-﻿namespace CleanZone.Data.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CleanZone.Data.Entities;
 
 public class Division
 {
@@ -6,6 +8,9 @@ public class Division
     public string Name { get; set; }
     public DateTime CleanTime { get; set; }
     public DateTime CleanInterval { get; set; }
+    [NotMapped]
+    public List<DateTime>? CleanLog { get; set; }
     public int AreaId { get; set; }
     public Area Area { get; set; }
+
 }

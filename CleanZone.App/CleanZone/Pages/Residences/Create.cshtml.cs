@@ -31,6 +31,6 @@ public class CreateModel : PageModel
         _context.Residence.Add(Residence);
         await _context.SaveChangesAsync();
 
-        return RedirectToPage("./Index");
+        return RedirectToPage("/areas/create");
     }
 }
