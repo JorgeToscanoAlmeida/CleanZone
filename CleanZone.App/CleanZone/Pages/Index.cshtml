@@ -2,20 +2,18 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
-
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-
-
 </div>
 
 @if (User.Identity.IsAuthenticated)
 {
-
+<form method="post">
     <ul id="myUL">
+            <span class="caret">Data atual: @ViewBag.DataAtual</span>
         @foreach (var resi in Model.Residence.Where(r => r.UserID == r.User.Id))
         {
             <li>
@@ -31,9 +29,13 @@
                                     <li>
                                         <span class="caret">@item2.Name</span>
 
-                                        <!-- Chamar o método ShowCleaningStatus e exibir o resultado -->
-                        @item2.ShowCleaningStatus(Model.currentDate);
-                                        
+                                        <div class="status-list">
+                                                @foreach (var barColor in item2.ShowCleaningStatus2(Model.Date))
+                                            {
+                                                <span class="bar" style="background-color: @barColor;"></span>
+                                            }
+                                        </div>
+                                        <button type="submit" name="divisionId" value="@item2.ID">Limpar</button>
                                     </li>
                                 }
                             </ul>
@@ -43,5 +45,23 @@
             </li>
         }
     </ul>
+</form>
 }
+<form method="post">
+    <button type="submit" name="advanceDate">Avançar um Dia</button>
+</form>
+<form method="post">
+    <button type="submit" name="desDate">atras um Dia</button>
+</form>
+<style>
+    /* Estilo para as barras coloridas */
+    .bar {
+        width: 20px; /* Largura da barra */
+        height: 10px; /* Altura da barra */
+        display: inline-block;
+        margin-right: 5px; /* Espaçamento entre as barras */
+    }
+</style>
+
+
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CleanZone.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class initteste : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -205,6 +205,8 @@ namespace CleanZone.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CleanTime = table.Column<int>(type: "int", nullable: false),
                     CleanInterval = table.Column<int>(type: "int", nullable: false),
+                    LastClean = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    currentDateFormatted = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AreaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

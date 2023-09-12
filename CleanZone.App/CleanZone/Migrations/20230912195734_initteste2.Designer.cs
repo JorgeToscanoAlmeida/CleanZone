@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanZone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230912113224_init")]
-    partial class init
+    [Migration("20230912195734_initteste2")]
+    partial class initteste2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,6 +84,12 @@ namespace CleanZone.Migrations
 
                     b.Property<int>("CleanTime")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CurrentDateFormatted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastClean")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()

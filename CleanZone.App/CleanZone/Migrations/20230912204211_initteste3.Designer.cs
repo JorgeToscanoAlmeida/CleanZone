@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanZone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230912114436_init2")]
-    partial class init2
+    [Migration("20230912204211_initteste3")]
+    partial class initteste3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
