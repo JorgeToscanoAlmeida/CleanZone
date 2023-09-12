@@ -2,6 +2,7 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+
 }
 
 <div class="text-center">
@@ -10,8 +11,10 @@
 
 
 </div>
+
 @if (User.Identity.IsAuthenticated)
 {
+
     <ul id="myUL">
         @foreach (var resi in Model.Residence.Where(r => r.UserID == r.User.Id))
         {
@@ -27,6 +30,10 @@
                                 {
                                     <li>
                                         <span class="caret">@item2.Name</span>
+
+                                        <!-- Chamar o método ShowCleaningStatus e exibir o resultado -->
+                        @item2.ShowCleaningStatus(Model.currentDate);
+                                        
                                     </li>
                                 }
                             </ul>

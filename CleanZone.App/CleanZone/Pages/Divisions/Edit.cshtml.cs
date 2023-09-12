@@ -25,11 +25,12 @@ namespace CleanZone.Pages.Divisions
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            
             if (id == null || _context.Division == null)
             {
                 return NotFound();
             }
-
+            
             var division =  await _context.Division.FirstOrDefaultAsync(m => m.ID == id);
             if (division == null)
             {
@@ -44,11 +45,12 @@ namespace CleanZone.Pages.Divisions
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            /*
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
+            */
             _context.Attach(Division).State = EntityState.Modified;
 
             try

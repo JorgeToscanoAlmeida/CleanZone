@@ -33,11 +33,12 @@ public class EditModel : PageModel
     // For more details, see https://aka.ms/RazorPagesCRUD.
     public async Task<IActionResult> OnPostAsync()
     {
+        /*
         if (!ModelState.IsValid)
         {
             return Page();
         }
-
+        */
         _context.Attach(Residence).State = EntityState.Modified;
 
         try

@@ -14,6 +14,7 @@ public class IndexModel : PageModel
     public IList<Residence> Residence { get; set; } = default!;
     public IList<Division> Division { get; set; } = default!;
     public IList<Area> Area { get; set; } = default!;
+    public DateTime currentDate = DateTime.Now;
 
     public async Task OnGetAsync()
     {
