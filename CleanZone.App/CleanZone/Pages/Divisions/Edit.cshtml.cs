@@ -1,66 +1,78 @@
-﻿namespace CleanZone.Pages.Divisions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using CleanZone.Data;
+using CleanZone.Data.Entities;
 
-public class EditModel : PageModel
+namespace CleanZone.Pages.Divisions
 {
-    private readonly CleanZone.Data.ApplicationDbContext _context;
-
-    public EditModel(CleanZone.Data.ApplicationDbContext context)
+    public class EditModel : PageModel
     {
-        _context = context;
-    }
+        private readonly CleanZone.Data.ApplicationDbContext _context;
 
-    [BindProperty]
-    public Division Division { get; set; } = default!;
-
-    public async Task<IActionResult> OnGetAsync(int? id)
-    {
-        if (id == null || _context.Division == null)
+        public EditModel(CleanZone.Data.ApplicationDbContext context)
         {
-            return NotFound();
+            _context = context;
         }
 
-        var division =  await _context.Division.FirstOrDefaultAsync(m => m.ID == id);
-        if (division == null)
-        {
-            return NotFound();
-        }
-        Division = division;
-       ViewData["AreaId"] = new SelectList(_context.Area, "Id", "Id");
-        return Page();
-    }
+        [BindProperty]
+        public Division Division { get; set; } = default!;
 
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see https://aka.ms/RazorPagesCRUD.
-    public async Task<IActionResult> OnPostAsync()
-    {
-        if (!ModelState.IsValid)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
-            return Page();
-        }
-
-        _context.Attach(Division).State = EntityState.Modified;
-
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!DivisionExists(Division.ID))
+            if (id == null || _context.Division == null)
             {
                 return NotFound();
             }
-            else
+
+            var division =  await _context.Division.FirstOrDefaultAsync(m => m.ID == id);
+            if (division == null)
             {
-                throw;
+                return NotFound();
             }
+            Division = division;
+           ViewData["AreaId"] = new SelectList(_context.Area, "Id", "Id");
+            return Page();
         }
 
-        return RedirectToPage("./Index");
-    }
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see https://aka.ms/RazorPagesCRUD.
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
-    private bool DivisionExists(int id)
-    {
-      return (_context.Division?.Any(e => e.ID == id)).GetValueOrDefault();
+            _context.Attach(Division).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DivisionExists(Division.ID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToPage("./Index");
+        }
+
+        private bool DivisionExists(int id)
+        {
+          return (_context.Division?.Any(e => e.ID == id)).GetValueOrDefault();
+        }
     }
 }

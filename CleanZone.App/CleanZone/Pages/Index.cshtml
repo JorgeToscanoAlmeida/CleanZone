@@ -7,4 +7,34 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
 </div>
+@if (User.Identity.IsAuthenticated)
+{
+    <ul id="myUL">
+        @foreach (var resi in Model.Residence.Where(r => r.UserID == r.User.Id))
+        {
+            <li>
+                <span class="caret">@resi.Name</span>
+                <ul class="nested">
+                    @foreach (var item in Model.Area.Where(a => a.ResidenceID == resi.Id))
+                    {
+                        <li>
+                            <span class="caret">@item.Name</span>
+                            <ul class="nested">
+                                @foreach (var item2 in Model.Division.Where(d => d.AreaId == item.Id))
+                                {
+                                    <li>
+                                        <span class="caret">@item2.Name</span>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+}
+

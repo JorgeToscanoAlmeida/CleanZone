@@ -44,6 +44,27 @@ namespace CleanZone.Migrations
                     b.ToTable("Area");
                 });
 
+            modelBuilder.Entity("CleanZone.Data.Entities.CleanLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DivisionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DivisionId");
+
+                    b.ToTable("CleanLogs");
+                });
+
             modelBuilder.Entity("CleanZone.Data.Entities.Division", b =>
                 {
                     b.Property<int>("ID")
@@ -55,10 +76,13 @@ namespace CleanZone.Migrations
                     b.Property<int>("AreaId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CleanInterval")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("CleanInterval")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("CleanTime")
+                    b.Property<int>("CleanTime")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastClean")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
@@ -306,6 +330,17 @@ namespace CleanZone.Migrations
                         .IsRequired();
 
                     b.Navigation("Residence");
+                });
+
+            modelBuilder.Entity("CleanZone.Data.Entities.CleanLog", b =>
+                {
+                    b.HasOne("CleanZone.Data.Entities.Division", "Division")
+                        .WithMany()
+                        .HasForeignKey("DivisionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Division");
                 });
 
             modelBuilder.Entity("CleanZone.Data.Entities.Division", b =>

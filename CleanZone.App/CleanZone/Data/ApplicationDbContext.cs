@@ -9,6 +9,7 @@ namespace CleanZone.Data
         public DbSet<Residence> Residence { get; set; }
         public DbSet<Area> Area { get; set; }
         public DbSet<Division> Division { get; set; }
+        public DbSet<CleanLog> CleanLogs { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

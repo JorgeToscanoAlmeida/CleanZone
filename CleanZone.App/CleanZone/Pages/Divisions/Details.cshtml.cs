@@ -1,32 +1,43 @@
-﻿namespace CleanZone.Pages.Divisions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using CleanZone.Data;
+using CleanZone.Data.Entities;
 
-public class DetailsModel : PageModel
+namespace CleanZone.Pages.Divisions
 {
-    private readonly CleanZone.Data.ApplicationDbContext _context;
-
-    public DetailsModel(CleanZone.Data.ApplicationDbContext context)
+    public class DetailsModel : PageModel
     {
-        _context = context;
-    }
+        private readonly CleanZone.Data.ApplicationDbContext _context;
 
-  public Division Division { get; set; } = default!; 
-
-    public async Task<IActionResult> OnGetAsync(int? id)
-    {
-        if (id == null || _context.Division == null)
+        public DetailsModel(CleanZone.Data.ApplicationDbContext context)
         {
-            return NotFound();
+            _context = context;
         }
 
-        var division = await _context.Division.FirstOrDefaultAsync(m => m.ID == id);
-        if (division == null)
+      public Division Division { get; set; } = default!; 
+
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
-            return NotFound();
+            if (id == null || _context.Division == null)
+            {
+                return NotFound();
+            }
+
+            var division = await _context.Division.FirstOrDefaultAsync(m => m.ID == id);
+            if (division == null)
+            {
+                return NotFound();
+            }
+            else 
+            {
+                Division = division;
+            }
+            return Page();
         }
-        else 
-        {
-            Division = division;
-        }
-        return Page();
     }
 }

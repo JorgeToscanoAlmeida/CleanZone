@@ -1,52 +1,63 @@
-﻿namespace CleanZone.Pages.Divisions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using CleanZone.Data;
+using CleanZone.Data.Entities;
 
-public class DeleteModel : PageModel
+namespace CleanZone.Pages.Divisions
 {
-    private readonly CleanZone.Data.ApplicationDbContext _context;
-
-    public DeleteModel(CleanZone.Data.ApplicationDbContext context)
+    public class DeleteModel : PageModel
     {
-        _context = context;
-    }
+        private readonly CleanZone.Data.ApplicationDbContext _context;
 
-    [BindProperty]
-  public Division Division { get; set; } = default!;
-
-    public async Task<IActionResult> OnGetAsync(int? id)
-    {
-        if (id == null || _context.Division == null)
+        public DeleteModel(CleanZone.Data.ApplicationDbContext context)
         {
-            return NotFound();
+            _context = context;
         }
 
-        var division = await _context.Division.FirstOrDefaultAsync(m => m.ID == id);
+        [BindProperty]
+      public Division Division { get; set; } = default!;
 
-        if (division == null)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
-            return NotFound();
-        }
-        else 
-        {
-            Division = division;
-        }
-        return Page();
-    }
+            if (id == null || _context.Division == null)
+            {
+                return NotFound();
+            }
 
-    public async Task<IActionResult> OnPostAsync(int? id)
-    {
-        if (id == null || _context.Division == null)
-        {
-            return NotFound();
-        }
-        var division = await _context.Division.FindAsync(id);
+            var division = await _context.Division.FirstOrDefaultAsync(m => m.ID == id);
 
-        if (division != null)
-        {
-            Division = division;
-            _context.Division.Remove(Division);
-            await _context.SaveChangesAsync();
+            if (division == null)
+            {
+                return NotFound();
+            }
+            else 
+            {
+                Division = division;
+            }
+            return Page();
         }
 
-        return RedirectToPage("./Index");
+        public async Task<IActionResult> OnPostAsync(int? id)
+        {
+            if (id == null || _context.Division == null)
+            {
+                return NotFound();
+            }
+            var division = await _context.Division.FindAsync(id);
+
+            if (division != null)
+            {
+                Division = division;
+                _context.Division.Remove(Division);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToPage("./Index");
+        }
     }
 }

@@ -2,9 +2,9 @@
 
 public class CreateModel : PageModel
 {
-    private readonly CleanZone.Data.ApplicationDbContext _context;
+    private readonly ApplicationDbContext _context;
 
-    public CreateModel(CleanZone.Data.ApplicationDbContext context)
+    public CreateModel(ApplicationDbContext context)
     {
         _context = context;
     }

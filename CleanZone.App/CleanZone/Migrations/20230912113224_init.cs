@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CleanZone.Migrations
 {
     /// <inheritdoc />
-    public partial class Addupdate : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -203,8 +203,8 @@ namespace CleanZone.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CleanTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CleanInterval = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CleanTime = table.Column<int>(type: "int", nullable: false),
+                    CleanInterval = table.Column<int>(type: "int", nullable: false),
                     AreaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -224,7 +224,7 @@ namespace CleanZone.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Data = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DivisionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

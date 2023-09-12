@@ -10,7 +10,7 @@ public class IndexModel : PageModel
     }
 
     public IList<Residence> Residence { get; set; } = default!;
-
+    
     public async Task OnGetAsync()
     {
 

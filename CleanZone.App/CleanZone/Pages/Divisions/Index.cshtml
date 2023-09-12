@@ -23,6 +23,9 @@
                 @Html.DisplayNameFor(model => model.Division[0].CleanInterval)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Division[0].LastClean)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Division[0].Area)
             </th>
             <th></th>
@@ -39,6 +42,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CleanInterval)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastClean)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Area.Name)

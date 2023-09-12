@@ -8,45 +8,49 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using CleanZone.Data;
 using CleanZone.Data.Entities;
 
-namespace CleanZone.Pages.Divisions;
-
-public class CreateModel : PageModel
+namespace CleanZone.Pages.Divisions
 {
-    private readonly CleanZone.Data.ApplicationDbContext _context;
-
-    public CreateModel(CleanZone.Data.ApplicationDbContext context)
+    public class CreateModel : PageModel
     {
-        _context = context;
-    }
+        private readonly CleanZone.Data.ApplicationDbContext _context;
 
-    public IActionResult OnGet()
-    {
-        string username = User.Identity.Name;
-
-        // Filtrar as residências pertencentes ao usuário pelo nome do usuário
-        var userResidences = _context.Area
-            .Where(r => r.Residence.User.UserName == username)
-            .ToList();
-        ViewData["AreaId"] = new SelectList(userResidences, "Id", "Id");
-        return Page();
-    }
-
-    [BindProperty]
-    public Division Division { get; set; } = default!;
-    
-
-    // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-    public async Task<IActionResult> OnPostAsync()
-    {
-        /*
-      if (!ModelState.IsValid || _context.Division == null || Division == null)
+        public CreateModel(CleanZone.Data.ApplicationDbContext context)
         {
+            _context = context;
+        }
+
+        public IActionResult OnGet()
+        {
+            string username = User.Identity.Name;
+            var userResidences = _context.Area
+            .Where(r => r.Residence.User.UserName == username)
+    .       ToList();
+            ViewData["AreaID"] = new SelectList(userResidences, "Id", "Name");
             return Page();
         }
-        */
-        _context.Division.Add(Division);
-        await _context.SaveChangesAsync();
 
-        return RedirectToPage("./Index");
+        [BindProperty]
+        public Division Division { get; set; } = default!;
+
+
+        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+        public async Task<IActionResult> OnPostAsync()
+        {/*
+          if (!ModelState.IsValid || _context.Division == null || Division == null)
+            {
+                return Page();
+            }
+          */
+            _context.Division.Add(Division);
+            await _context.SaveChangesAsync();
+            var clean = new CleanLog()
+            {
+                DateTime = Division.LastClean,
+                DivisionId = Division.ID,
+            };
+            _context.CleanLogs.Add(clean);
+            await _context.SaveChangesAsync();
+            return RedirectToPage("./Index");
+        }
     }
 }

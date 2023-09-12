@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanZone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230911220814_Addupdate")]
-    partial class Addupdate
+    [Migration("20230912114436_init2")]
+    partial class init2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,7 +55,7 @@ namespace CleanZone.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Data")
+                    b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("DivisionId")
@@ -79,10 +79,13 @@ namespace CleanZone.Migrations
                     b.Property<int>("AreaId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CleanInterval")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("CleanInterval")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("CleanTime")
+                    b.Property<int>("CleanTime")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastClean")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
