@@ -10,6 +10,7 @@ namespace CleanZone.Data
         public DbSet<Area> Area { get; set; }
         public DbSet<Division> Division { get; set; }
         public DbSet<CleanLog> CleanLogs { get; set; }
+        public DbSet<EmailLog> EmailLogs { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

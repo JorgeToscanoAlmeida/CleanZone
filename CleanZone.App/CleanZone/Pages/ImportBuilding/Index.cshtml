@@ -1,0 +1,22 @@
+﻿@page
+@model CleanZone.Pages.ImportBuilding.IndexModel
+@{
+}
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
+
+<h1>Importar Edifício em YAML</h1>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="BuildingYamlFile">Selecione um arquivo YAML:</label>
+        <input type="file" id="BuildingYamlFile" name="BuildingYamlFile" class="form-control-file" />
+    </div>
+    <button type="submit" class="btn btn-primary">Importar</button>
+</form>

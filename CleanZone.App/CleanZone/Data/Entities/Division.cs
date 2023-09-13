@@ -13,10 +13,6 @@ public class Division
     public int AreaId { get; set; }
     public Area Area { get; set; }
 
-    public Division()
-    {
-        
-    }
 
     public void AddCleaning(DateTime date)
     {
