@@ -20,12 +20,14 @@ public class IndexModel : PageModel
         .Select(r => r.Id)
         .Average();
         int numberOfDivisions = _context.Division.Count();
+        int numberOfCleanDivisions = _context.Division.Count(d => d.IsClean);
 
         Model = new StatisticsViewModel
         {
             NumberOfUsers = numberOfUsers,
             AverageBuildings = averageBuildings,
             NumberOfDivisions = numberOfDivisions,
+            NumberOfCleanDivisions = numberOfCleanDivisions,
         };
     }
 

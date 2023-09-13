@@ -3,7 +3,7 @@ namespace CleanZone.Pages.Arvoreview;
 public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
-    private readonly ApplicationDbContext _context;
+    public readonly ApplicationDbContext _context;
     private readonly DateService _dateService;
 
     public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext context, DateService dateService)
@@ -53,13 +53,11 @@ public class IndexModel : PageModel
         if (HttpContext.Request.Form.ContainsKey("desDate"))
         {
             _dateService.DescrementarData();
-
             return RedirectToPage("./Index");
         }
         if (HttpContext.Request.Form.ContainsKey("advanceDate"))
         {
             _dateService.IncrementarData();
-
             return RedirectToPage("./Index");
         }
         if (HttpContext.Request.Form.ContainsKey("divisionId"))
@@ -68,6 +66,7 @@ public class IndexModel : PageModel
             if (division != null)
             {
                 division.AddCleaning(_dateService.ObterDataAtual());
+                division.IsClean = true;
                 _context.SaveChanges();
             }
             return RedirectToPage("./Index");

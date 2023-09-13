@@ -28,7 +28,9 @@
                                                 @foreach (var barColor in item2.ShowCleaningStatus2(Model.Date))
                                                 {
                                                     <span class="bar" style="background-color: @barColor;"></span>
+
                                                 }
+
                                             </div>
                                             <button type="submit" name="divisionId" value="@item2.ID">Limpar</button>
                                         </li>
@@ -41,6 +43,9 @@
             }
         </ul>
     </form>
+}
+@{
+    Model._context.SaveChanges();
 }
 <form method="post">
     <button type="submit" name="desDate">Atras um Dia</button>

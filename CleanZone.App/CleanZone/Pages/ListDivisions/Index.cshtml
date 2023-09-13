@@ -1,0 +1,23 @@
+﻿@page
+@model CleanZone.Pages.ListDivisions.IndexModel
+@{
+}
+<h1>Lista de Divisões</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Necessidade de Limpeza</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var division in Model.Divisions.OrderBy(d => d.IsClean))
+        {
+            <tr>
+                <td>@division.Name</td>
+                <td>@(division.IsClean ? "Limpa" : "Precisa de Limpeza")</td>
+            </tr>
+        }
+    </tbody>
+</table>
