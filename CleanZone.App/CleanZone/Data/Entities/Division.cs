@@ -11,6 +11,7 @@ public class Division
     public DateTime LastClean { get; set; }
     public int AreaId { get; set; }
     public Area Area { get; set; }
+    
 
 
     public List<string> ShowCleaningStatus(DateTime currentDate)
