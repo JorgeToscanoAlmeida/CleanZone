@@ -11,3 +11,4 @@ global using Microsoft.EntityFrameworkCore;
 global using CleanZone.Data;
 global using System.Diagnostics;
 global using CleanZone.Services.Models;
+global using Microsoft.AspNetCore.Authorization;

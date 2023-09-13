@@ -1,5 +1,7 @@
-﻿namespace CleanZone.Pages.Areas;
+﻿using Microsoft.AspNetCore.Authorization;
 
+namespace CleanZone.Pages.Areas;
+[Authorize]
 public class IndexModel : PageModel
 {
     private readonly CleanZone.Data.ApplicationDbContext _context;

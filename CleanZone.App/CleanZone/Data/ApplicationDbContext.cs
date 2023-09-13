@@ -16,5 +16,3 @@ namespace CleanZone.Data
         }
     }
 }
-
-//User.FindFirstValue

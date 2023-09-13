@@ -62,8 +62,6 @@ public class Division
     public void AddCleaning(DateTime date)
     {
         LastClean = date;
-        //Console.WriteLine("\n»»» Registo de limpeza adicionado com sucesso!");
-        //Console.ReadKey();
     }
     public List<string> ShowCleaningStatus2(DateTime currentDate)
     {
@@ -87,8 +85,7 @@ public class Division
         {
             barColors.Add("green");
         }
-
-        // Adicionar barras "|" com base no número de barras definido por daysSinceLastClean
+        /*
         for (int i = 0; i < daysSinceLastClean; i++)
         {
             if (barColors.Count >= 20)
@@ -96,7 +93,7 @@ public class Division
 
             barColors.Add("|");
         }
-
+        */
         return barColors;
     }
 }
