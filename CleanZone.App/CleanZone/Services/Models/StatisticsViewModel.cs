@@ -6,4 +6,5 @@ public class StatisticsViewModel
     public double AverageBuildings { get; set; }
     public int NumberOfDivisions { get; set; }
     public int NumberOfCleanDivisions { get; set; }
+    public int NumberOfNoCleanDivisions { get; set; }
 }

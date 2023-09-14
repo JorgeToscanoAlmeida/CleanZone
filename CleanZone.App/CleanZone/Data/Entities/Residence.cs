@@ -8,4 +8,10 @@ public class Residence
     public string Name { get; set; }
     public string UserID { get; set; }
     public IdentityUser User { get; set; }
+
+    public List<Residence> ImportFromYaml(string yamlContent)
+    {
+        var importedBuildings = new List<Residence>();
+        return importedBuildings;
+    }
 }

@@ -17,7 +17,7 @@ public class CreateModel : PageModel
         var userResidences = _context.Residence
             .Where(r => r.User.UserName == username)
             .ToList();
-        ViewData["ResidenceID"] = new SelectList(userResidences, "Id", "Id");
+        ViewData["ResidenceID"] = new SelectList(userResidences, "Id", "Name");
         return Page();
     }
 

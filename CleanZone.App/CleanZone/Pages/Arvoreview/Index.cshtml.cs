@@ -75,15 +75,31 @@ public class IndexModel : PageModel
         if (HttpContext.Request.Form.ContainsKey("simulador"))
         {
             var dataAtual = _dateService.ObterDataAtual();
+            var dataSimulada = Date;
+
+            TimeSpan diferenca = dataSimulada - dataAtual;
+
+            int dias = (int)diferenca.TotalDays + 1;
+
+            if (dias != 0)
+            {
+                _dateService.IncrementarDataSimulation(dias);
+            }
+
+            /*
+            var dataAtual = _dateService.ObterDataAtual();
             var dataSimulada = Date; 
 
             int anos = dataSimulada.Year - dataAtual.Year;
             int meses = dataSimulada.Month - dataAtual.Month;
 
             int dias = (anos * 12 + meses) * 30; 
-
+            if(dias == 0)
+            {
+                _dateService.IncrementarDataSimulation(dataSimulada.Day - dataAtual.Day);
+            }
             _dateService.IncrementarDataSimulation(dias);
-
+            */
             return RedirectToPage("./Index");
         }
         // _dateService.IncrementarData();

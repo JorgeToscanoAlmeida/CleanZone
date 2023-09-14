@@ -23,16 +23,15 @@
                                     {
                                         <li>
                                             <span class="caret">@item2.Name</span>
-
-                                            <div class="status-list">
-                                                @foreach (var barColor in item2.ShowCleaningStatus2(Model.Date))
-                                                {
-                                                    <span class="bar" style="background-color: @barColor;"></span>
-
-                                                }
-
+                                            <div class="d-grid gap-2">
+                                                <div class="status-list">
+                                                    @foreach (var barColor in item2.ShowCleaningStatus2(Model.Date))
+                                                    {
+                                                        <span class="bar" style="background-color: @barColor;"></span>
+                                                    }
+                                                </div>
+                                                <button type="submit" class="btn btn-success btn-sm" name="divisionId" value="@item2.ID">Clean</button>
                                             </div>
-                                            <button type="submit" name="divisionId" value="@item2.ID">Limpar</button>
                                         </li>
                                     }
                                 </ul>
@@ -48,25 +47,28 @@
     Model._context.SaveChanges();
 }
 <form method="post">
-    <button type="submit" name="desDate">Atras um Dia</button>
-    <button type="submit" name="advanceDate">Avançar um Dia</button>
-
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="submit" class="btn btn-primary" name="desDate">One Day Back</button>
+        <button type="submit" class="btn btn-primary" name="advanceDate">Advance a Day</button>
+    </div>
 </form>
 <form method="post">
     <div class="form-group">
         <label asp-for="Date" class="control-label">Indique uma data (DD-MM-YYYY):</label>
         <input asp-for="Date" class="form-control" type="date" />
         <span asp-validation-for="Date" class="text-danger"></span>
-
     </div>
-    <button type="submit" name="simulador">Simular uma Data!</button>
+    
+    <button type="submit" class="btn btn-primary" name="simulador">
+        Simulate a Date!
+    </button>
+    
 </form>
 <style>
-    /* Estilo para as barras coloridas */
     .bar {
-        width: 20px; /* Largura da barra */
-        height: 10px; /* Altura da barra */
+        width: 1190px; 
+        height: 10px; 
         display: inline-block;
-        margin-right: 5px; /* Espaçamento entre as barras */
+        margin-right: 5px; 
     }
 </style>

@@ -1,7 +1,3 @@
-using Humanizer;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-
 namespace CleanZone.Pages.Public;
 
 public class IndexModel : PageModel
@@ -17,10 +13,17 @@ public class IndexModel : PageModel
     {
         int numberOfUsers = _context.Users.Count();
         var averageBuildings = _context.Residence
-        .Select(r => r.Id)
-        .Average();
+        .GroupBy(r => r.UserID)
+        .Select(group => new
+        {
+            UserID = group.Key,
+            AverageResidences = group.Count()
+        })
+        .Average(group => group.AverageResidences);
+
         int numberOfDivisions = _context.Division.Count();
         int numberOfCleanDivisions = _context.Division.Count(d => d.IsClean);
+        int numberOfnoCleanDivisions = _context.Division.Count(d => !d.IsClean);
 
         Model = new StatisticsViewModel
         {
@@ -28,6 +31,7 @@ public class IndexModel : PageModel
             AverageBuildings = averageBuildings,
             NumberOfDivisions = numberOfDivisions,
             NumberOfCleanDivisions = numberOfCleanDivisions,
+            NumberOfNoCleanDivisions = numberOfnoCleanDivisions,
         };
     }
 
