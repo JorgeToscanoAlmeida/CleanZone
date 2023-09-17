@@ -2,39 +2,28 @@
 
 public class CreateModel : PageModel
 {
-    private readonly ApplicationDbContext _context;
+    private readonly ResidenceRepository _residenceRepository;
 
-    public CreateModel(ApplicationDbContext context)
+    public CreateModel(ResidenceRepository residenceRepository)
     {
-        _context = context;
+        _residenceRepository = residenceRepository;
     }
 
     public IActionResult OnGet()
     {
         string username = User.Identity.Name;
 
-        ViewData["UserID"] = new SelectList(_context.Users.Where(u => u.UserName == username), "Id", "UserName");
+        ViewData["UserID"] = _residenceRepository.ViewDataByName(username);
+
         return Page();
     }
 
     [BindProperty]
     public Residence Residence { get; set; } = default!;
 
-
-    // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()
     {
-        /*
-      if (!ModelState.IsValid )
-        {
-            return Page();
-        }
-        */
-        _context.Residence.Add(Residence);
-
-
-        await _context.SaveChangesAsync();
-
+        await _residenceRepository.AddResidencyAsync(Residence);
         return RedirectToPage("/areas/create");
     }
 }

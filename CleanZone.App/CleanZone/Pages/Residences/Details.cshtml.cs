@@ -2,28 +2,27 @@
 
 public class DetailsModel : PageModel
 {
-    private readonly CleanZone.Data.ApplicationDbContext _context;
-
-    public DetailsModel(CleanZone.Data.ApplicationDbContext context)
+    private readonly ResidenceRepository _residenceRepository;
+    public DetailsModel(ResidenceRepository residenceRepository)
     {
-        _context = context;
+        _residenceRepository = residenceRepository;
     }
 
-  public Residence Residence { get; set; } = default!; 
+    public Residence Residence { get; set; } = default!;
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
-        if (id == null || _context.Residence == null)
+        if (id == null)
         {
             return NotFound();
         }
 
-        var residence = await _context.Residence.FirstOrDefaultAsync(m => m.Id == id);
+        var residence = await _residenceRepository.GetByIdAsync(id);
         if (residence == null)
         {
             return NotFound();
         }
-        else 
+        else
         {
             Residence = residence;
         }

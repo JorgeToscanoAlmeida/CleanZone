@@ -2,30 +2,30 @@
 
 public class DeleteModel : PageModel
 {
-    private readonly CleanZone.Data.ApplicationDbContext _context;
+    private readonly ResidenceRepository _residenceRepository;
 
-    public DeleteModel(CleanZone.Data.ApplicationDbContext context)
+    public DeleteModel(ResidenceRepository residenceRepository)
     {
-        _context = context;
+        _residenceRepository = residenceRepository;
     }
 
     [BindProperty]
-  public Residence Residence { get; set; } = default!;
+    public Residence Residence { get; set; } = default!;
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
-        if (id == null || _context.Residence == null)
+        if (id == null)
         {
             return NotFound();
         }
 
-        var residence = await _context.Residence.FirstOrDefaultAsync(m => m.Id == id);
+        var residence = await _residenceRepository.GetByIdAsync(id);
 
         if (residence == null)
         {
             return NotFound();
         }
-        else 
+        else
         {
             Residence = residence;
         }
@@ -34,19 +34,13 @@ public class DeleteModel : PageModel
 
     public async Task<IActionResult> OnPostAsync(int? id)
     {
-        if (id == null || _context.Residence == null)
+        if (id == null)
         {
             return NotFound();
         }
-        var residence = await _context.Residence.FindAsync(id);
+        var residence = await _residenceRepository.FindAsync(id);
 
-        if (residence != null)
-        {
-            Residence = residence;
-            _context.Residence.Remove(Residence);
-            await _context.SaveChangesAsync();
-        }
-
+        await _residenceRepository.DeleteByIdAsync(id);
         return RedirectToPage("./Index");
     }
 }

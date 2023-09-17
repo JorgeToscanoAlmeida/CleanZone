@@ -10,22 +10,22 @@ public class IndexModel : PageModel
         _context = context;
     }
     [BindProperty]
-    public IFormFile BuildingYamlFile { get; set; }
+    public IFormFile ResidencyYamlFile { get; set; }
     public IActionResult OnPost()
     {
-        if (BuildingYamlFile != null && BuildingYamlFile.Length > 0)
+        if (ResidencyYamlFile != null && ResidencyYamlFile.Length > 0)
         {
-            using var reader = new StreamReader(BuildingYamlFile.OpenReadStream());
+            using var reader = new StreamReader(ResidencyYamlFile.OpenReadStream());
             var yamlContent = reader.ReadToEnd();
 
             var deserializer = new DeserializerBuilder().Build();
-            var building = deserializer.Deserialize<Residence>(yamlContent);
+            var residencia = deserializer.Deserialize<Residence>(yamlContent);
 
-            if (building != null)
+            if (residencia != null)
             {
                 _context.Database.OpenConnection();
                 _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Residence ON");
-                _context.Residence.Add(building);
+                _context.Residence.Add(residencia);
                 _context.SaveChanges();
 
                 return RedirectToPage("/Index");

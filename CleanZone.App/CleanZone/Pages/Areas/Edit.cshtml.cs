@@ -2,11 +2,11 @@
 
 public class EditModel : PageModel
 {
-    private readonly CleanZone.Data.ApplicationDbContext _context;
+    private readonly AreaRepository _areaRepository;
 
-    public EditModel(CleanZone.Data.ApplicationDbContext context)
+    public EditModel(AreaRepository areaRepository)
     {
-        _context = context;
+        _areaRepository = areaRepository;
     }
 
     [BindProperty]
@@ -14,54 +14,25 @@ public class EditModel : PageModel
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
-        if (id == null || _context.Area == null)
+        if (id == null)
         {
             return NotFound();
         }
 
-        var area =  await _context.Area.FirstOrDefaultAsync(m => m.Id == id);
+        var area = await _areaRepository.GetByIdAsync(id);
         if (area == null)
         {
             return NotFound();
         }
         Area = area;
-       ViewData["ResidenceID"] = new SelectList(_context.Residence, "Id", "Id");
+        string username = User.Identity.Name;
+        ViewData["ResidenceID"] = _areaRepository.ViewDataByName(username);
         return Page();
     }
 
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see https://aka.ms/RazorPagesCRUD.
     public async Task<IActionResult> OnPostAsync()
     {
-        /*
-        if (!ModelState.IsValid)
-        {
-            return Page();
-        }
-        */
-        _context.Attach(Area).State = EntityState.Modified;
-
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!AreaExists(Area.Id))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
-        }
-
+        await _areaRepository.UpdateAsync(Area);
         return RedirectToPage("./Index");
-    }
-
-    private bool AreaExists(int id)
-    {
-      return (_context.Area?.Any(e => e.Id == id)).GetValueOrDefault();
     }
 }

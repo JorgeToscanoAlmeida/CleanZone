@@ -1,31 +1,33 @@
-﻿namespace CleanZone.Pages.Areas;
+﻿using CleanZone.Repositories;
+
+namespace CleanZone.Pages.Areas;
 
 public class DeleteModel : PageModel
 {
-    private readonly CleanZone.Data.ApplicationDbContext _context;
+    private readonly AreaRepository _areaRepository;
 
-    public DeleteModel(CleanZone.Data.ApplicationDbContext context)
+    public DeleteModel(AreaRepository areaRepository)
     {
-        _context = context;
+        _areaRepository = areaRepository;
     }
 
     [BindProperty]
-  public Area Area { get; set; } = default!;
+    public Area Area { get; set; } = default!;
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
-        if (id == null || _context.Area == null)
+        if (id == null)
         {
             return NotFound();
         }
 
-        var area = await _context.Area.FirstOrDefaultAsync(m => m.Id == id);
+        var area = await _areaRepository.GetByIdAsync(id);
 
         if (area == null)
         {
             return NotFound();
         }
-        else 
+        else
         {
             Area = area;
         }
@@ -34,18 +36,12 @@ public class DeleteModel : PageModel
 
     public async Task<IActionResult> OnPostAsync(int? id)
     {
-        if (id == null || _context.Area == null)
+        if (id == null)
         {
             return NotFound();
         }
-        var area = await _context.Area.FindAsync(id);
-
-        if (area != null)
-        {
-            Area = area;
-            _context.Area.Remove(Area);
-            await _context.SaveChangesAsync();
-        }
+        var area = await _areaRepository.FindAsync(id);
+        await _areaRepository.DeleteByIdAsync(id);
 
         return RedirectToPage("./Index");
     }

@@ -1,43 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using CleanZone.Data;
-using CleanZone.Data.Entities;
-
-namespace CleanZone.Pages.Divisions
+﻿namespace CleanZone.Pages.Divisions;
+public class DetailsModel : PageModel
 {
-    public class DetailsModel : PageModel
+    private readonly DivionRepositoy _divionRepositoy;
+
+    public DetailsModel(DivionRepositoy divionRepositoy)
     {
-        private readonly CleanZone.Data.ApplicationDbContext _context;
+        _divionRepositoy = divionRepositoy;
+    }
 
-        public DetailsModel(CleanZone.Data.ApplicationDbContext context)
+    public Division Division { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null)
         {
-            _context = context;
+            return NotFound();
         }
-
-      public Division Division { get; set; } = default!; 
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var division = await _divionRepositoy.GetByIdAsync(id);
+        if (division == null)
         {
-            if (id == null || _context.Division == null)
-            {
-                return NotFound();
-            }
-
-            var division = await _context.Division.FirstOrDefaultAsync(m => m.ID == id);
-            if (division == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                Division = division;
-            }
-            return Page();
+            return NotFound();
         }
+        else
+        {
+            Division = division;
+        }
+        return Page();
     }
 }

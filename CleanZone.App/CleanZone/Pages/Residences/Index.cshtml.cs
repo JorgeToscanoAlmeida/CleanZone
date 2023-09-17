@@ -1,29 +1,21 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace CleanZone.Pages.Residences;
+﻿namespace CleanZone.Pages.Residences;
 [Authorize]
 public class IndexModel : PageModel
 {
-    private readonly CleanZone.Data.ApplicationDbContext _context;
+    private readonly ResidenceRepository _residenceRepository;
 
-    public IndexModel(CleanZone.Data.ApplicationDbContext context)
+    public IndexModel(ResidenceRepository residenceRepository)
     {
-        _context = context;
+        _residenceRepository = residenceRepository;
     }
 
     public IList<Residence> Residence { get; set; } = default!;
-    
+
     public async Task OnGetAsync()
     {
 
         string username = User.Identity.Name;
+        Residence = await _residenceRepository.GetByNameAsync(username);
 
-        if (!string.IsNullOrEmpty(username))
-        {
-            Residence = await _context.Residence
-                .Where(r => r.User.UserName == username) // Filtra por nome de usuário
-                .Include(r => r.User)
-                .ToListAsync();
-        }
     }
 }

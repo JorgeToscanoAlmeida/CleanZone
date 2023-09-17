@@ -2,28 +2,28 @@
 
 public class DetailsModel : PageModel
 {
-    private readonly CleanZone.Data.ApplicationDbContext _context;
+    private readonly AreaRepository _areaRepository;
 
-    public DetailsModel(CleanZone.Data.ApplicationDbContext context)
+    public DetailsModel(AreaRepository areaRepository)
     {
-        _context = context;
+        _areaRepository = areaRepository;
     }
 
-  public Area Area { get; set; } = default!; 
+    public Area Area { get; set; } = default!;
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
-        if (id == null || _context.Area == null)
+        if (id == null)
         {
             return NotFound();
         }
 
-        var area = await _context.Area.FirstOrDefaultAsync(m => m.Id == id);
+        var area = await _areaRepository.GetByIdAsync(id);
         if (area == null)
         {
             return NotFound();
         }
-        else 
+        else
         {
             Area = area;
         }

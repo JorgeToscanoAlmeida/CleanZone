@@ -4,24 +4,18 @@ namespace CleanZone.Pages.Areas;
 [Authorize]
 public class IndexModel : PageModel
 {
-    private readonly CleanZone.Data.ApplicationDbContext _context;
+    private readonly AreaRepository _areaRepository;
 
-    public IndexModel(CleanZone.Data.ApplicationDbContext context)
+    public IndexModel(AreaRepository areaRepository)
     {
-        _context = context;
+        _areaRepository = areaRepository;
     }
 
-    public IList<Area> Area { get;set; } = default!;
+    public IList<Area> Area { get; set; } = default!;
 
     public async Task OnGetAsync()
     {
-        string username = User.Identity.Name;
-        if (_context.Area != null)
-        {
-            Area = await _context.Area
-            .Where(r => r.Residence.User.UserName== username)
-            .Include(a => a.Residence)
-            .ToListAsync();
-        }
+        Area = await _areaRepository.GetByNameAsync(User.Identity.Name);
+
     }
 }

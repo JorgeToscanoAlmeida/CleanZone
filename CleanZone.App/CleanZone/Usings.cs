@@ -12,3 +12,4 @@ global using CleanZone.Data;
 global using System.Diagnostics;
 global using CleanZone.Services.Models;
 global using Microsoft.AspNetCore.Authorization;
+global using CleanZone.Repositories;
