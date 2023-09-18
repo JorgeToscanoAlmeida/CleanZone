@@ -23,7 +23,7 @@ public class Division
     {
         var barColors = new List<string>();
 
-        var cleanInterval = CleanInterval;
+        var cleanInterval = CleanTime;
         var lastCleanDate = LastClean;
         var daysSinceLastClean = (currentDate - lastCleanDate).Days;
         var cleanDueDate = lastCleanDate.AddDays(cleanInterval);

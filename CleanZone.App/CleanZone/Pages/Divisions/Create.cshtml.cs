@@ -1,4 +1,6 @@
-﻿namespace CleanZone.Pages.Divisions;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+
+namespace CleanZone.Pages.Divisions;
 
 public class CreateModel : PageModel
 {
@@ -20,6 +22,14 @@ public class CreateModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
+        var validationResult = _divionRepositoy.Validate(Division.LastClean, Division.CleanTime, Division.CleanInterval);
+
+        if (!validationResult.isValid)
+        {
+            ModelState.AddModelError($"Division.{validationResult.name}", validationResult.errorMessage);
+            return Page();
+        }
+
         Division = await _divionRepositoy.AddDivisionAsync(Division);
         return RedirectToPage("./Index");
     }

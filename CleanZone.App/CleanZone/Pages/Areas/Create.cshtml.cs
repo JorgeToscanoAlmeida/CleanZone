@@ -18,10 +18,15 @@ public class CreateModel : PageModel
 
     [BindProperty]
     public Area Area { get; set; } = default!;
+    [BindProperty]
+    public List<Area> Areas { get; set; } = new List<Area>();
 
+    [BindProperty]
+    public int NumberOfAreas { get; set; }
     public async Task<IActionResult> OnPostAsync()
     {
         await _areaRepository.AddAreaAsync(Area);
-        return RedirectToPage("./Index");
+        return RedirectToPage("/divisions/create");
+
     }
 }

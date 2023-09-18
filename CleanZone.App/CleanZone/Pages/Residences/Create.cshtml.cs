@@ -3,7 +3,6 @@
 public class CreateModel : PageModel
 {
     private readonly ResidenceRepository _residenceRepository;
-
     public CreateModel(ResidenceRepository residenceRepository)
     {
         _residenceRepository = residenceRepository;
@@ -23,7 +22,11 @@ public class CreateModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
+        var userId = await _residenceRepository.ObterIdDoUsuario(User.Identity.Name);
+
+        Residence.UserID = userId;
         await _residenceRepository.AddResidencyAsync(Residence);
+
         return RedirectToPage("/areas/create");
     }
 }

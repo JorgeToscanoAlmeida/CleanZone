@@ -13,3 +13,5 @@ global using System.Diagnostics;
 global using CleanZone.Services.Models;
 global using Microsoft.AspNetCore.Authorization;
 global using CleanZone.Repositories;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Mvc.RazorPages;

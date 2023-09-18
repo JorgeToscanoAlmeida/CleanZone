@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Area.ResidenceID" class="control-label">Residence Name</label>
-                <select asp-for="Area.ResidenceID" class ="form-control" asp-items="ViewBag.ResidenceID"></select>
+                <select asp-for="Area.ResidenceID" class="form-control" asp-items="ViewBag.ResidenceID"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -28,11 +28,12 @@
         </form>
     </div>
 </div>
-
 <div>
     <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

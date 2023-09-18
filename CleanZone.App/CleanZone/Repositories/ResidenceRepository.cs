@@ -1,13 +1,17 @@
-﻿namespace CleanZone.Repositories;
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace CleanZone.Repositories;
 
 public class ResidenceRepository
 {
     private readonly ApplicationDbContext _ctx;
+    private readonly UserManager<IdentityUser> _userManager;
     private readonly ILogger<ResidenceRepository> _logger;
-    public ResidenceRepository(ApplicationDbContext ctx, ILogger<ResidenceRepository> logger)
+    public ResidenceRepository(ApplicationDbContext ctx, ILogger<ResidenceRepository> logger, UserManager<IdentityUser> userManager)
     {
         _ctx = ctx;
         _logger = logger;
+        _userManager = userManager;
     }
     public async Task<Residence> GetByIdAsync(int? id)
     {
@@ -49,6 +53,17 @@ public class ResidenceRepository
             .Include(r => r.User)
             .ToListAsync();
         }
+        return null;
+    }
+    public async Task<string> ObterIdDoUsuario(string userName)
+    {
+        var user = await _userManager.FindByNameAsync(userName);
+
+        if (user != null)
+        {
+            return user.Id;
+        }
+
         return null;
     }
 }

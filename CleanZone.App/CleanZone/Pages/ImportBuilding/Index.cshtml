@@ -4,7 +4,7 @@
 }
 @using Microsoft.AspNetCore.Mvc.ViewFeatures
 
-<h1>Importar Edifício em YAML</h1>
+<h1>Import Residence in YAML</h1>
 
 @if (TempData["ErrorMessage"] != null)
 {
@@ -15,8 +15,12 @@
 
 <form method="post" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="BuildingYamlFile">Selecione um arquivo YAML:</label>
-        <input type="file" id="BuildingYamlFile" name="BuildingYamlFile" class="form-control-file" />
+        <label for="ResidencyYamlFile">
+            Select a YAML file:
+        </label>
+        <input type="file" id="ResidencyYamlFile" name="ResidencyYamlFile" class="form-control-file"  /> 
     </div>
-    <button type="submit" class="btn btn-primary">Importar</button>
+    <button type="submit" class="btn btn-primary">Import</button>
 </form>
+
+

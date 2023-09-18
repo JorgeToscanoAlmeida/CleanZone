@@ -31,7 +31,7 @@ public class IndexModel : PageModel
                 return RedirectToPage("/Index");
             }
         }
-        TempData["ErrorMessage"] = "Falha ao importar o edifício. Verifique o formato YAML.";
+        TempData["ErrorMessage"] = "Failed to import the residence. Check the YAML format.";
         return Page();
     }
 }

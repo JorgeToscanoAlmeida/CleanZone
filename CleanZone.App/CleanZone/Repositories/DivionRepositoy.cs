@@ -11,6 +11,22 @@ public class DivionRepositoy
         _ctx = ctx;
         _logger = logger;
     }
+    public (bool isValid, string errorMessage, string name) Validate(DateTime lastClean, int cleanTime, int cleanInterval)
+    {
+        if (lastClean > DateTime.Now)
+        {
+            return (false, "The date cannot be later than the current date.", "LastClean");
+        }
+        if (cleanTime < 0)
+        {
+            return (false, "The value must be greater than or equal to 0.", "CleanTime");
+        }
+        if (cleanInterval < 0)
+        {
+            return (false, "The value must be greater than or equal to 0.", "CleanInterval");
+        }
+        return (true, null, null);
+    }
     public SelectList ViewDataByName(string username)
     {
         var userResidences = _ctx.Area
