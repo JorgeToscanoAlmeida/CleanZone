@@ -1,7 +1,5 @@
-﻿using CleanZone.Repositories;
-
-namespace CleanZone.Pages.Areas;
-
+﻿namespace CleanZone.Pages.Areas;
+[Authorize]
 public class DeleteModel : PageModel
 {
     private readonly AreaRepository _areaRepository;

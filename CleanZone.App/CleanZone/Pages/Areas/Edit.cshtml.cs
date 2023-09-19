@@ -1,5 +1,5 @@
 ﻿namespace CleanZone.Pages.Areas;
-
+[Authorize]
 public class EditModel : PageModel
 {
     private readonly AreaRepository _areaRepository;

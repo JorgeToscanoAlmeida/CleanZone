@@ -27,7 +27,6 @@ public class Division
         var lastCleanDate = LastClean;
         var daysSinceLastClean = (currentDate - lastCleanDate).Days;
         var cleanDueDate = lastCleanDate.AddDays(cleanInterval);
-        //var daysOverdue = (currentDate - cleanDueDate).Days;
 
         if (currentDate > cleanDueDate.AddDays(2))
         {
@@ -44,15 +43,15 @@ public class Division
             IsClean = true;
             barColors.Add("green");
         }
-        /*
+
         for (int i = 0; i < daysSinceLastClean; i++)
         {
             if (barColors.Count >= 20)
                 break;
 
-            barColors.Add("|");
+            barColors.Add(barColors.LastOrDefault() ?? "");
         }
-        */
+
         return barColors;
     }
 }

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace CleanZone.Pages.Divisions;
+﻿namespace CleanZone.Pages.Divisions;
 [Authorize]
 public class IndexModel : PageModel
 {

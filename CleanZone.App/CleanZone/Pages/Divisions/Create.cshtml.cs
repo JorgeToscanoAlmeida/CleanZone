@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-
-namespace CleanZone.Pages.Divisions;
-
+﻿namespace CleanZone.Pages.Divisions;
+[Authorize]
 public class CreateModel : PageModel
 {
     private readonly DivionRepositoy _divionRepositoy;

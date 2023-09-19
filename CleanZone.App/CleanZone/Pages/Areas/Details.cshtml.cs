@@ -1,5 +1,5 @@
 ﻿namespace CleanZone.Pages.Areas;
-
+[Authorize]
 public class DetailsModel : PageModel
 {
     private readonly AreaRepository _areaRepository;

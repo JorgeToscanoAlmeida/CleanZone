@@ -1,5 +1,5 @@
 ﻿namespace CleanZone.Pages.Divisions;
-
+[Authorize]
 public class DeleteModel : PageModel
 {
     private readonly DivionRepositoy _divionRepositoy;

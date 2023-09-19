@@ -7,7 +7,7 @@ public class UnitTest1
 {
 
     [Fact]
-    public void ImportBuildings_ValidYamlFile_ShouldImportBuildings()
+    public void ShouldImportBuildings()
     {
         var yamlContent = "..."; 
         var residence = new Residence(); 

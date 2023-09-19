@@ -1,4 +1,5 @@
 ﻿namespace CleanZone.Pages.Divisions;
+[Authorize]
 public class DetailsModel : PageModel
 {
     private readonly DivionRepositoy _divionRepositoy;

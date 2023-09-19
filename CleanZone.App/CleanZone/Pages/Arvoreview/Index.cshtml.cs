@@ -85,24 +85,8 @@ public class IndexModel : PageModel
             {
                 _dateService.IncrementarDataSimulation(dias);
             }
-
-            /*
-            var dataAtual = _dateService.ObterDataAtual();
-            var dataSimulada = Date; 
-
-            int anos = dataSimulada.Year - dataAtual.Year;
-            int meses = dataSimulada.Month - dataAtual.Month;
-
-            int dias = (anos * 12 + meses) * 30; 
-            if(dias == 0)
-            {
-                _dateService.IncrementarDataSimulation(dataSimulada.Day - dataAtual.Day);
-            }
-            _dateService.IncrementarDataSimulation(dias);
-            */
             return RedirectToPage("./Index");
         }
-        // _dateService.IncrementarData();
         return RedirectToPage("./Index");
 
     }

@@ -1,5 +1,5 @@
 ﻿namespace CleanZone.Pages.Residences;
-
+[Authorize]
 public class DeleteModel : PageModel
 {
     private readonly ResidenceRepository _residenceRepository;
