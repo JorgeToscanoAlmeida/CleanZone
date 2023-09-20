@@ -16,6 +16,7 @@ builder.Services.AddSingleton<DateService>();
 builder.Services.AddScoped<ResidenceRepository>();
 builder.Services.AddScoped<AreaRepository>();
 builder.Services.AddScoped<DivionRepositoy>();
+builder.Services.AddScoped<ImportRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

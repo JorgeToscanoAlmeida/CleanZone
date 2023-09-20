@@ -1,6 +1,4 @@
-using CleanZone.Data.Entities;
 using System.Security.Claims;
-using System.Security.Policy;
 using YamlDotNet.Serialization;
 
 namespace CleanZone.Pages.ImportBuilding;
@@ -8,9 +6,12 @@ namespace CleanZone.Pages.ImportBuilding;
 public class IndexModel : PageModel
 {
     private readonly ApplicationDbContext _context;
-    public IndexModel(ApplicationDbContext context)
+    private readonly ImportRepository _importRepository;
+
+    public IndexModel(ApplicationDbContext context, ImportRepository importRepository)
     {
         _context = context;
+        _importRepository = importRepository;
     }
     [BindProperty]
     public IFormFile ResidencyYamlFile { get; set; }
@@ -18,24 +19,7 @@ public class IndexModel : PageModel
     {
         if (ResidencyYamlFile != null && ResidencyYamlFile.Length > 0)
         {
-            using var reader = new StreamReader(ResidencyYamlFile.OpenReadStream());
-            var yamlContent = reader.ReadToEnd();
-
-            var deserializer = new DeserializerBuilder().Build();
-            var division = deserializer.Deserialize<Division>(yamlContent);
-
-            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            _context.Division.Add(division);
-            _context.Area.Add(division.Area);
-            division.Area.Residence.UserID = userId;
-            _context.Residence.Add(division.Area.Residence);
-
-            _context.SaveChanges();
-
-
-
-
+            _importRepository.ImportBuildings(ResidencyYamlFile, User);
             return RedirectToPage("/Index");
 
         }
