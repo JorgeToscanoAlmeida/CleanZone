@@ -11,11 +11,18 @@ public class AreaRepository
         _ctx = ctx;
         _logger = logger;
     }
+    public async Task<IList<Area>> GetAreasAsync(string username)
+    {
+        return await _ctx.Area
+        .Where(r => r.Residence.User.UserName == username)
+        .Include(a => a.Residence.User)
+        .ToListAsync();
+    }
     public SelectList ViewDataByName(string username)
     {
         var userResidences = _ctx.Residence
-    .Where(r => r.User.UserName == username)
-    .ToList();
+        .Where(r => r.User.UserName == username)
+        .ToList();
         return new SelectList(userResidences, "Id", "Name");
     }
     public async Task<Area> GetByIdAsync(int? id)

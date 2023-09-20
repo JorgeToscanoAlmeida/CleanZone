@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanZone.Repositories;
 
@@ -12,6 +13,13 @@ public class ResidenceRepository
         _ctx = ctx;
         _logger = logger;
         _userManager = userManager;
+    }
+    public async Task<IList<Residence>> GetResidencesAsync(string username)
+    {
+        return await _ctx.Residence
+                .Where(r => r.User.UserName == username)
+                .Include(r => r.User)
+                .ToListAsync();
     }
     public async Task<Residence> GetByIdAsync(int? id)
     {

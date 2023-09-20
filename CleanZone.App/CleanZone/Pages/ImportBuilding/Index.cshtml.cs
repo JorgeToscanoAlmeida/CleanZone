@@ -1,3 +1,6 @@
+using CleanZone.Data.Entities;
+using System.Security.Claims;
+using System.Security.Policy;
 using YamlDotNet.Serialization;
 
 namespace CleanZone.Pages.ImportBuilding;
@@ -19,19 +22,25 @@ public class IndexModel : PageModel
             var yamlContent = reader.ReadToEnd();
 
             var deserializer = new DeserializerBuilder().Build();
-            var residencia = deserializer.Deserialize<Residence>(yamlContent);
+            var division = deserializer.Deserialize<Division>(yamlContent);
 
-            if (residencia != null)
-            {
-                _context.Database.OpenConnection();
-                _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Residence ON");
-                _context.Residence.Add(residencia);
-                _context.SaveChanges();
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-                return RedirectToPage("/Index");
-            }
+            _context.Division.Add(division);
+            _context.Area.Add(division.Area);
+            division.Area.Residence.UserID = userId;
+            _context.Residence.Add(division.Area.Residence);
+
+            _context.SaveChanges();
+
+
+
+
+            return RedirectToPage("/Index");
+
         }
-        TempData["ErrorMessage"] = "Failed to import the residence. Check the YAML format.";
+        // Tratamento de erro, se a desserialização falhar ou não houver dados no YAML
+        TempData["ErrorMessage"] = "Failed to import the divisions. Check the YAML format.";
         return Page();
     }
 }

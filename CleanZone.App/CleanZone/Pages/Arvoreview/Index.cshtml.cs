@@ -1,3 +1,6 @@
+using CleanZone.Repositories;
+using System.ComponentModel.DataAnnotations;
+
 namespace CleanZone.Pages.Arvoreview;
 [Authorize]
 public class IndexModel : PageModel
@@ -5,16 +8,24 @@ public class IndexModel : PageModel
     private readonly ILogger<IndexModel> _logger;
     public readonly ApplicationDbContext _context;
     private readonly DateService _dateService;
+    private readonly AreaRepository _areaRepository;
+    private readonly DivionRepositoy _divionRepositoy;
+    private readonly ResidenceRepository _residenceRepository;
 
-    public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext context, DateService dateService)
+    public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext context, DateService dateService, 
+        AreaRepository areaRepository,DivionRepositoy divionRepositoy, ResidenceRepository residenceRepository)
     {
         _logger = logger;
         _context = context;
         _dateService = dateService;
+        _areaRepository = areaRepository;
+        _divionRepositoy = divionRepositoy;
+        _residenceRepository = residenceRepository;
     }
     public IList<Residence> Residence { get; set; } = default!;
     public IList<Division> Division { get; set; } = default!;
     public IList<Area> Area { get; set; } = default!;
+
     [BindProperty]
     public DateTime Date { get; set; }
     public async Task OnGetAsync()
@@ -27,29 +38,34 @@ public class IndexModel : PageModel
 
         if (!string.IsNullOrEmpty(username))
         {
-            Residence = await _context.Residence
-                .Where(r => r.User.UserName == username)
-                .Include(r => r.User)
-                .ToListAsync();
+            Residence = await _residenceRepository.GetResidencesAsync(username);
         }
         if (_context.Division != null)
         {
-            Division = await _context.Division
-            .Where(r => r.Area.Residence.User.UserName == username)
-            .Include(a => a.Area.Residence.User)
-            .ToListAsync();
+            Division = await _divionRepositoy.GetDivisionsAsync(username);
         }
         if (_context.Area != null)
         {
-            Area = await _context.Area
-            .Where(r => r.Residence.User.UserName == username)
-            .Include(a => a.Residence.User)
-            .ToListAsync();
+            Area = await _areaRepository.GetAreasAsync(username);
         }
 
     }
-    public IActionResult OnPost(int divisionId)
+    public async Task<IActionResult> OnPostAsync(int divisionId)
     {
+        string username = User.Identity.Name;
+
+        if (!string.IsNullOrEmpty(username))
+        {
+            Residence = await _residenceRepository.GetResidencesAsync(username);
+        }
+        if (_context.Division != null)
+        {
+            Division = await _divionRepositoy.GetDivisionsAsync(username);
+        }
+        if (_context.Area != null)
+        {
+            Area = await _areaRepository.GetAreasAsync(username);
+        }
         if (HttpContext.Request.Form.ContainsKey("desDate"))
         {
             _dateService.DescrementarData();
@@ -74,13 +90,26 @@ public class IndexModel : PageModel
 
         if (HttpContext.Request.Form.ContainsKey("simulador"))
         {
-            var dataAtual = _dateService.ObterDataAtual();
+            int dias;
+            var dataAtual2 = _dateService.ObterDataAtual();
             var dataSimulada = Date;
 
-            TimeSpan diferenca = dataSimulada - dataAtual;
-
-            int dias = (int)diferenca.TotalDays + 1;
-
+            TimeSpan diferenca = dataSimulada - dataAtual2;
+            if ((int)diferenca.TotalDays > 0)
+            {
+                dias = (int)diferenca.TotalDays + 1; // adicionar dias 
+            }
+            else
+            {
+                dias = (int)diferenca.TotalDays; // retirar dias 
+            }
+            if (dias > 20)
+            {
+                Date = _dateService.ObterDataAtual();
+                ViewData["DataAtual"] = _dateService.ObterDataAtual().ToString("dd/MM/yyyy HH:mm:ss");
+                ModelState.AddModelError("Date", "Você não pode simular mais de 20 dias no futuro.");
+                return Page();
+            }
             if (dias != 0)
             {
                 _dateService.IncrementarDataSimulation(dias);

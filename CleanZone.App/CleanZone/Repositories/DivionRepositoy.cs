@@ -11,6 +11,13 @@ public class DivionRepositoy
         _ctx = ctx;
         _logger = logger;
     }
+    public async Task<IList<Division>> GetDivisionsAsync(string username)
+    {
+        return await _ctx.Division
+            .Where(r => r.Area.Residence.User.UserName == username)
+            .Include(a => a.Area.Residence.User)
+            .ToListAsync();
+    }
     public (bool isValid, string errorMessage, string name) Validate(DateTime lastClean, int cleanTime, int cleanInterval)
     {
         if (lastClean > DateTime.Now)

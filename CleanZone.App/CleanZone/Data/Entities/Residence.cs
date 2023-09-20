@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace CleanZone.Data.Entities;
 
@@ -9,9 +11,4 @@ public class Residence
     public string UserID { get; set; }
     public IdentityUser User { get; set; }
 
-    public List<Residence> ImportFromYaml(string yamlContent)
-    {
-        var importedBuildings = new List<Residence>();
-        return importedBuildings;
-    }
 }
