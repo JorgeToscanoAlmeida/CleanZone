@@ -21,7 +21,7 @@ public class EmailService
         mailMessage.To.Add(toEmail);
         smtpClient.Send(mailMessage);
     }
-    public void EnviarEmails(List<DivisionViewModel> divisions)
+    public bool EnviarEmails(List<DivisionViewModel> divisions)
     {
         foreach (var division in divisions.Where(d => d.IsClean == false))
         {
@@ -29,7 +29,9 @@ public class EmailService
             var emailBody = $"Olá, User da CelanZone!\n\nA divisão '{division.Name}' precisa de limpeza.";
 
             SendEmail(division.EmailSubject, emailSubject, emailBody);
+            return true;
         }
+        return false;
     }
 }
 

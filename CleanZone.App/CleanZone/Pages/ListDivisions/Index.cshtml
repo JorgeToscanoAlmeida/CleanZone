@@ -2,13 +2,13 @@
 @model CleanZone.Pages.ListDivisions.IndexModel
 @{
 }
-<h1>Lista de Divisões</h1>
+<h1>List of Divisions</h1>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Nome</th>
-            <th>Necessidade de Limpeza</th>
+            <th>Name</th>
+            <th>Cleaning Needed</th>
         </tr>
     </thead>
     <tbody>
@@ -16,12 +16,18 @@
         {
             <tr>
                 <td>@division.Name</td>
-                <td>@(division.IsClean ? "Limpa" : "Precisa de Limpeza")</td>
+                <td>@(division.IsClean ? "Clean" : "Needs Cleaning")</td>
             </tr>
         }
     </tbody>
 </table>
 
 <form method="post">
-    <button type="submit" name="enviar">Enviar Emails Com As Divisoes Sujas</button>
+    <button type="submit" name="enviar" class="btn btn-primary">Send Emails for Unclean Divisions</button>
 </form>
+@if (TempData.ContainsKey("Sucesso"))
+{
+    <div class="alert alert-success">
+        @TempData["Sucesso"]
+    </div>
+}

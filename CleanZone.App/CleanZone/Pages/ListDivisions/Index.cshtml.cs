@@ -45,7 +45,11 @@ public class IndexModel : PageModel
                 await _divionRepositoy.AddEmailLogAsync(emaillog);
 
             }
-            _emailService.EnviarEmails(DivisionViewModel);
+            
+            if (_emailService.EnviarEmails(DivisionViewModel))
+            {
+                TempData["Sucesso"] = "Emails were sent successfully!";
+            }
         }
     }
 }

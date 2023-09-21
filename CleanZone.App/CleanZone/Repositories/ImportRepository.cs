@@ -8,11 +8,6 @@ namespace CleanZone.Repositories;
 public class ImportRepository
 {
     private readonly ApplicationDbContext _context;
-
-    public ImportRepository()
-    {
-    }
-
     public ImportRepository(ApplicationDbContext context)
     {
         _context = context;

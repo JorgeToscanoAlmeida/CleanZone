@@ -13,6 +13,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
+//Os meus Servicos/////////////////////////////////////////
 builder.Services.AddSingleton<DateService>();
 builder.Services.AddScoped<ResidenceRepository>();
 builder.Services.AddScoped<AreaRepository>();
@@ -20,6 +21,7 @@ builder.Services.AddScoped<DivisionRepositoy>();
 builder.Services.AddScoped<ImportRepository>();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<StatisticsViewModelRepository>();
+/////////////////////////////////////////////////////////////
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

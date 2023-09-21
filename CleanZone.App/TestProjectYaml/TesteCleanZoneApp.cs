@@ -1,4 +1,4 @@
-namespace TestProjectYaml;
+namespace TestProject;
 public class TesteCleanZoneApp
 {
     //False

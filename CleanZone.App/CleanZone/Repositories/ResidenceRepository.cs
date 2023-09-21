@@ -40,10 +40,6 @@ public class ResidenceRepository
         _ = await _ctx.SaveChangesAsync();
         return residencia;
     }
-    public SelectList ViewDataByID()
-    {
-        return new SelectList(_ctx.Users, "Id", "Id");
-    }
     public SelectList ViewDataByName(string username)
     {
         return new SelectList(_ctx.Users.Where(u => u.UserName == username), "Id", "UserName");
