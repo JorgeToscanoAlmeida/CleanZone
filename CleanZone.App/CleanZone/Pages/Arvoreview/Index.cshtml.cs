@@ -1,4 +1,5 @@
 using CleanZone.Repositories;
+using CleanZone.Services;
 using System.ComponentModel.DataAnnotations;
 
 namespace CleanZone.Pages.Arvoreview;
@@ -9,11 +10,11 @@ public class IndexModel : PageModel
     public readonly ApplicationDbContext _context;
     private readonly DateService _dateService;
     private readonly AreaRepository _areaRepository;
-    private readonly DivionRepositoy _divionRepositoy;
+    private readonly DivisionRepositoy _divionRepositoy;
     private readonly ResidenceRepository _residenceRepository;
 
     public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext context, DateService dateService, 
-        AreaRepository areaRepository,DivionRepositoy divionRepositoy, ResidenceRepository residenceRepository)
+        AreaRepository areaRepository,DivisionRepositoy divionRepositoy, ResidenceRepository residenceRepository)
     {
         _logger = logger;
         _context = context;

@@ -1,4 +1,4 @@
-﻿namespace CleanZone.Services.Models;
+﻿namespace CleanZone.Services;
 
 public class DateService
 {

@@ -1,4 +1,5 @@
 using CleanZone.Repositories;
+using CleanZone.Services;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,9 +16,10 @@ builder.Services.AddRazorPages();
 builder.Services.AddSingleton<DateService>();
 builder.Services.AddScoped<ResidenceRepository>();
 builder.Services.AddScoped<AreaRepository>();
-builder.Services.AddScoped<DivionRepositoy>();
+builder.Services.AddScoped<DivisionRepositoy>();
 builder.Services.AddScoped<ImportRepository>();
 builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<StatisticsViewModelRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

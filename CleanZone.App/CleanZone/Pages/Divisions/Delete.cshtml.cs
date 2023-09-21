@@ -2,9 +2,9 @@
 [Authorize]
 public class DeleteModel : PageModel
 {
-    private readonly DivionRepositoy _divionRepositoy;
+    private readonly DivisionRepositoy _divionRepositoy;
 
-    public DeleteModel(DivionRepositoy divionRepositoy)
+    public DeleteModel(DivisionRepositoy divionRepositoy)
     {
         _divionRepositoy = divionRepositoy;
     }

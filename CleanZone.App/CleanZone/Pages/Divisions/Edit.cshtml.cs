@@ -2,9 +2,9 @@
 [Authorize]
 public class EditModel : PageModel
 {
-    private readonly DivionRepositoy _divionRepositoy;
+    private readonly DivisionRepositoy _divionRepositoy;
 
-    public EditModel(DivionRepositoy divionRepositoy)
+    public EditModel(DivisionRepositoy divionRepositoy)
     {
         _divionRepositoy = divionRepositoy;
     }

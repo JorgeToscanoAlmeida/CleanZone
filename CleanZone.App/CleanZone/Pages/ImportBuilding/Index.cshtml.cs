@@ -5,12 +5,10 @@ namespace CleanZone.Pages.ImportBuilding;
 [Authorize]
 public class IndexModel : PageModel
 {
-    private readonly ApplicationDbContext _context;
     private readonly ImportRepository _importRepository;
 
-    public IndexModel(ApplicationDbContext context, ImportRepository importRepository)
+    public IndexModel(ImportRepository importRepository)
     {
-        _context = context;
         _importRepository = importRepository;
     }
     [BindProperty]

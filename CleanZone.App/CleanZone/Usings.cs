@@ -12,3 +12,5 @@ global using System.Diagnostics;
 global using CleanZone.Services.Models;
 global using Microsoft.AspNetCore.Authorization;
 global using CleanZone.Repositories;
+global using System.Net;
+global using System.Net.Mail;

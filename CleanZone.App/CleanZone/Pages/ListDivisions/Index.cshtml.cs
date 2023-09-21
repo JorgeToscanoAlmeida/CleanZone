@@ -1,3 +1,4 @@
+using CleanZone.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanZone.Pages.ListDivisions;
@@ -5,9 +6,9 @@ namespace CleanZone.Pages.ListDivisions;
 public class IndexModel : PageModel
 {
     private readonly EmailService _emailService;
-    private readonly DivionRepositoy _divionRepositoy;
+    private readonly DivisionRepositoy _divionRepositoy;
 
-    public IndexModel(EmailService emailService, DivionRepositoy divionRepositoy)
+    public IndexModel(EmailService emailService, DivisionRepositoy divionRepositoy)
     {
         _emailService = emailService;
         _divionRepositoy = divionRepositoy;
@@ -17,13 +18,7 @@ public class IndexModel : PageModel
     public async Task OnGetAsync()
     {
         var user = User.Identity.Name;
-        var allRecords = _context.SuaTabela.ToList();
 
-        // Remove todos os registros da lista.
-        _context.SuaTabela.RemoveRange(allRecords);
-
-        // Confirma as alterações no banco de dados.
-        _context.SaveChanges();
         if (user != null)
         {
             DivisionViewModel = await _divionRepositoy.GetListDivisionsByUsernameAsync(user);

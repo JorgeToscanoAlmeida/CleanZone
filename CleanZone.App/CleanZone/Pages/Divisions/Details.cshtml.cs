@@ -2,9 +2,9 @@
 [Authorize]
 public class DetailsModel : PageModel
 {
-    private readonly DivionRepositoy _divionRepositoy;
+    private readonly DivisionRepositoy _divionRepositoy;
 
-    public DetailsModel(DivionRepositoy divionRepositoy)
+    public DetailsModel(DivisionRepositoy divionRepositoy)
     {
         _divionRepositoy = divionRepositoy;
     }

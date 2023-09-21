@@ -2,9 +2,9 @@
 [Authorize]
 public class CreateModel : PageModel
 {
-    private readonly DivionRepositoy _divionRepositoy;
+    private readonly DivisionRepositoy _divionRepositoy;
 
-    public CreateModel(DivionRepositoy divionRepositoy)
+    public CreateModel(DivisionRepositoy divionRepositoy)
     {
         _divionRepositoy = divionRepositoy;
     }

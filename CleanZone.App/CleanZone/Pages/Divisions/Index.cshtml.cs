@@ -2,9 +2,9 @@
 [Authorize]
 public class IndexModel : PageModel
 {
-    private readonly DivionRepositoy _divionRepositoy;
+    private readonly DivisionRepositoy _divionRepositoy;
 
-    public IndexModel(DivionRepositoy divionRepositoy)
+    public IndexModel(DivisionRepositoy divionRepositoy)
     {
         _divionRepositoy = divionRepositoy;
     }

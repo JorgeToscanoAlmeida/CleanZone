@@ -1,7 +1,4 @@
-﻿using Humanizer;
-using System.Net;
-using System.Net.Mail;
-namespace CleanZone.Services.Models;
+﻿namespace CleanZone.Services;
 
 public class EmailService
 {
@@ -21,17 +18,15 @@ public class EmailService
             Body = body,
             IsBodyHtml = true,
         };
-
         mailMessage.To.Add(toEmail);
-
         smtpClient.Send(mailMessage);
     }
     public void EnviarEmails(List<DivisionViewModel> divisions)
     {
         foreach (var division in divisions.Where(d => d.IsClean == false))
         {
-            var emailSubject = "Alerta de Limpeza"; // Defina o assunto do e-mail aqui
-            var emailBody = $"Olá, User da CelanZone!\n\nA divisão '{division.Name}' precisa de limpeza."; // Defina o corpo do e-mail aqui
+            var emailSubject = "Alerta de Limpeza";
+            var emailBody = $"Olá, User da CelanZone!\n\nA divisão '{division.Name}' precisa de limpeza.";
 
             SendEmail(division.EmailSubject, emailSubject, emailBody);
         }

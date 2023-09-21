@@ -1,13 +1,10 @@
-﻿using CleanZone.Services.Models;
-using Microsoft.EntityFrameworkCore;
+﻿namespace CleanZone.Repositories;
 
-namespace CleanZone.Repositories;
-
-public class DivionRepositoy
+public class DivisionRepositoy
 {
     private readonly ApplicationDbContext _ctx;
     private readonly ILogger<ResidenceRepository> _logger;
-    public DivionRepositoy(ApplicationDbContext ctx, ILogger<ResidenceRepository> logger)
+    public DivisionRepositoy(ApplicationDbContext ctx, ILogger<ResidenceRepository> logger)
     {
         _ctx = ctx;
         _logger = logger;
