@@ -1,4 +1,4 @@
-# CleanZone - Sistema de Gestão de Limpeza de Edifícios
+# CleanZone - Sistema de Gestão de Limpeza de Residencias
 
 O CleanZone é um sistema de gestão projetado para ajudar os utilizadores a manterem os edifícios e as divisões limpos de forma eficiente. Este README fornece informações sobre o projeto CleanZone e como usá-lo.
 
