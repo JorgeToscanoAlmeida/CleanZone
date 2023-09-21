@@ -1,4 +1,3 @@
-using YamlDotNet.Serialization;
 namespace TestProjectYaml;
 public class TesteImports
 {

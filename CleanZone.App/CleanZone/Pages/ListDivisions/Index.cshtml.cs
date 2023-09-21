@@ -1,65 +1,56 @@
-using CleanZone.Services.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanZone.Pages.ListDivisions;
 [Authorize]
 public class IndexModel : PageModel
 {
+    private readonly EmailService _emailService;
+    private readonly DivionRepositoy _divionRepositoy;
 
-    private readonly ApplicationDbContext _context;
-
-    public IndexModel(ApplicationDbContext context)
+    public IndexModel(EmailService emailService, DivionRepositoy divionRepositoy)
     {
-        _context = context;
+        _emailService = emailService;
+        _divionRepositoy = divionRepositoy;
     }
-    public List<DivisionViewModel> Divisions { get; set; }
+    [BindProperty]
+    public List<DivisionViewModel> DivisionViewModel { get; set; }
     public async Task OnGetAsync()
     {
         var user = User.Identity.Name;
+        var allRecords = _context.SuaTabela.ToList();
 
+        // Remove todos os registros da lista.
+        _context.SuaTabela.RemoveRange(allRecords);
+
+        // Confirma as alterações no banco de dados.
+        _context.SaveChanges();
         if (user != null)
         {
-            Divisions = _context.Division
-                .Where(d => d.Area.Residence.User.UserName == user)
-                .Select(d => new DivisionViewModel
-                {
-                    Id = d.ID,
-                    Name = d.Name,
-                    IsClean = d.IsClean
-                    // Preencha outras propriedades relevantes do ViewModel
-                })
-                .ToList();
-
-
+            DivisionViewModel = await _divionRepositoy.GetListDivisionsByUsernameAsync(user);
         }
     }
-    public void OnPost()
+    public async Task OnPost()
     {
         if (HttpContext.Request.Form.ContainsKey("enviar"))
         {
-        var user = User.Identity.Name;
-            Divisions = _context.Division
-            .Where(d => d.Area.Residence.User.UserName == user)
-            .Select(d => new DivisionViewModel
-            {
-                Id = d.ID,
-                Name = d.Name,
-                IsClean = d.IsClean
-                // Preencha outras propriedades relevantes do ViewModel
-        })
-                .ToList();
-            foreach (var division in Divisions.Where(d => d.IsClean == false))
+
+            var user = User.Identity.Name;
+
+            DivisionViewModel = await _divionRepositoy.GetListDivisionsByUsernameAsync(user);
+            var divisionsToEmail = DivisionViewModel.Where(d => !d.IsClean).ToList();
+            foreach (var division in divisionsToEmail)
             {
                 var emaillog = new EmailLog
                 {
                     DivisionID = division.Id.ToString(),
                     EmailContent = division.Name,
-                    SentAt = DateTime.Now
+                    SentAt = DateTime.Now,
+                    EmailSubject = division.EmailSubject
                 };
-                _context.EmailLogs.Add(emaillog);
+                await _divionRepositoy.AddEmailLogAsync(emaillog);
 
             }
-
-            _context.SaveChanges();
+            _emailService.EnviarEmails(DivisionViewModel);
         }
     }
 }

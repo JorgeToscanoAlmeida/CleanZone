@@ -17,6 +17,7 @@ builder.Services.AddScoped<ResidenceRepository>();
 builder.Services.AddScoped<AreaRepository>();
 builder.Services.AddScoped<DivionRepositoy>();
 builder.Services.AddScoped<ImportRepository>();
+builder.Services.AddScoped<EmailService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

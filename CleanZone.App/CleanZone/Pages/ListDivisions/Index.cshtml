@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var division in Model.Divisions.OrderBy(d => d.IsClean))
+        @foreach (var division in Model.DivisionViewModel.OrderBy(d => d.IsClean))
         {
             <tr>
                 <td>@division.Name</td>

@@ -7,6 +7,7 @@ public class IndexModel : PageModel
     }
     public IActionResult OnPost()
     {
+
         return RedirectToPage("./Index");
     }
 }

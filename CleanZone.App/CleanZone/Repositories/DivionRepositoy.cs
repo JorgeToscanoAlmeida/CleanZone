@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CleanZone.Services.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanZone.Repositories;
 
@@ -18,28 +19,22 @@ public class DivionRepositoy
             .Include(a => a.Area.Residence.User)
             .ToListAsync();
     }
-    public (bool isValid, string errorMessage, string name) Validate(DateTime lastClean, int cleanTime, int cleanInterval)
+    public async Task<List<DivisionViewModel>> GetListDivisionsByUsernameAsync(string username)
     {
-        if (lastClean > DateTime.Now)
-        {
-            return (false, "The date cannot be later than the current date.", "LastClean");
-        }
-        if (cleanTime < 0)
-        {
-            return (false, "The value must be greater than or equal to 0.", "CleanTime");
-        }
-        if (cleanInterval < 0)
-        {
-            return (false, "The value must be greater than or equal to 0.", "CleanInterval");
-        }
-        return (true, null, null);
+        return await _ctx.Division
+            .Where(d => d.Area.Residence.User.UserName == username)
+            .Select(d => new DivisionViewModel
+            {
+                Id = d.ID,
+                Name = d.Name,
+                IsClean = d.IsClean,
+                EmailSubject = d.Area.Residence.User.UserName,
+            }).ToListAsync();
     }
-    public SelectList ViewDataByName(string username)
+    public async Task AddEmailLogAsync(EmailLog emailLog)
     {
-        var userResidences = _ctx.Area
-        .Where(r => r.Residence.User.UserName == username)
-        .ToList();
-        return new SelectList(userResidences, "Id", "Name");
+        _ctx.EmailLogs.Add(emailLog);
+        await _ctx.SaveChangesAsync();
     }
     public async Task<Division> GetByIdAsync(int? id)
     {
@@ -81,5 +76,28 @@ public class DivionRepositoy
             .ToListAsync();
         }
         return null;
+    }
+    public (bool isValid, string errorMessage, string name) Validate(DateTime lastClean, int cleanTime, int cleanInterval)
+    {
+        if (lastClean > DateTime.Now)
+        {
+            return (false, "The date cannot be later than the current date.", "LastClean");
+        }
+        if (cleanTime < 0)
+        {
+            return (false, "The value must be greater than or equal to 0.", "CleanTime");
+        }
+        if (cleanInterval < 0)
+        {
+            return (false, "The value must be greater than or equal to 0.", "CleanInterval");
+        }
+        return (true, null, null);
+    }
+    public SelectList ViewDataByName(string username)
+    {
+        var userResidences = _ctx.Area
+        .Where(r => r.Residence.User.UserName == username)
+        .ToList();
+        return new SelectList(userResidences, "Id", "Name");
     }
 }

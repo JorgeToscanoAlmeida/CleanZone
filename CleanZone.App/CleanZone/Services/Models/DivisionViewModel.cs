@@ -5,4 +5,5 @@ public class DivisionViewModel
     public int Id { get; set; }
     public string Name { get; set; }
     public bool IsClean { get; set; }
+    public string EmailSubject { get; set; }
 }

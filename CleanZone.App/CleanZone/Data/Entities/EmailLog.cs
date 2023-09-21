@@ -8,4 +8,5 @@ public class EmailLog
     public string DivisionID { get; set; }
     public string EmailContent { get; set; } 
     public DateTime SentAt { get; set; }
+    public string EmailSubject { get; set; }
 }
