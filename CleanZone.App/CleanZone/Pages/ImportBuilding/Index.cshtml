@@ -3,24 +3,57 @@
 @{
 }
 @using Microsoft.AspNetCore.Mvc.ViewFeatures
+<div class="imagem">
+    <h1>Import Residence in YAML</h1>
 
-<h1>Import Residence in YAML</h1>
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
 
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger" role="alert">
-        @TempData["ErrorMessage"]
-    </div>
-}
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="ResidencyYamlFile">
+                Select a YAML file:
+            </label>
+            <input type="file" id="ResidencyYamlFile" name="ResidencyYamlFile" class="form-control-file" />
+        </div>
+        <button type="submit" class="btn btn-primary">Import</button>
+    </form>
+</div>
+<style>
+    h1 {
+        font-size: 24px;
+        color: #333;
+        margin-top: 20px;
+    }
 
-<form method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="ResidencyYamlFile">
-            Select a YAML file:
-        </label>
-        <input type="file" id="ResidencyYamlFile" name="ResidencyYamlFile" class="form-control-file"  /> 
-    </div>
-    <button type="submit" class="btn btn-primary">Import</button>
-</form>
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        padding: 10px;
+        margin-top: 20px;
+    }
 
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+
+    .form-group {
+        margin-top: 20px;
+    }
+
+    label {
+        font-size: 18px;
+        color: #333;
+    }
+
+    .form-control-file {
+        font-size: 18px;
+    }
+</style>
 

@@ -1,5 +1,5 @@
 ---
-Name: Divisão 1
+Name: Divisao 1
 CleanTime: 30
 CleanInterval: 7
 LastClean: '2023-09-20T10:00:00'
@@ -9,4 +9,4 @@ Area:
   Name: Sala de Estar
   ResidenceID: 1
   Residence:
-    Name: Minha Residência
+    Name: Minha Residencia

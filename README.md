@@ -4,7 +4,7 @@ O CleanZone é um sistema de gestão projetado para ajudar os utilizadores a man
 
 ## Exemplo de Ficheiro YAML
 
-Para facilitar o uso do CleanZone, fornecemos um exemplo de ficheiro YAML que pode ser utilizado para importar edifícios com as suas propriedades. Você pode encontrar o arquivo de exemplo em `sample.yaml` no diretório raiz deste projeto. Este arquivo demonstra o formato e a estrutura que o sistema aceita para a importação de edifícios.
+Para facilitar o uso do CleanZone, forneci um exemplo de ficheiro YAML que pode ser utilizado para importar edifícios com as suas propriedades. Você pode encontrar o arquivo de exemplo em `sample.yaml` no diretório raiz deste projeto. Este arquivo demonstra o formato e a estrutura que o sistema aceita para a importação de edifícios.
 
 ## Funcionalidades Principais
 

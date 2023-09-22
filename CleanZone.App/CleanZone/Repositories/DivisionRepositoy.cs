@@ -50,13 +50,6 @@ public class DivisionRepositoy
     {
         _ctx.Division.Add(division);
         await _ctx.SaveChangesAsync();
-        var clean = new CleanLog()
-        {
-            DateTime = division.LastClean,
-            DivisionId = division.ID,
-        };
-        _ctx.CleanLogs.Add(clean);
-        await _ctx.SaveChangesAsync();
         return division;
     }
     public async Task<Division> FindAsync(int? id)

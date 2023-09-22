@@ -2,7 +2,7 @@
 @model CleanZone.Pages.Public.IndexModel
 @{
 }
-
+<div class="intro">
 <h1>Usage Statistics</h1>
 
 <p>Number of Users: @Model.Model.NumberOfUsers</p>
@@ -10,6 +10,33 @@
 <p>Total Number of Divisions Created: @Model.Model.NumberOfDivisions</p>
 <p>Total Number of Rooms Cleaned: @Model.Model.NumberOfCleanDivisions</p>
 <p>Total Number of Dirty Rooms: @Model.Model.NumberOfNoCleanDivisions</p>
+</div>
 <!-- Outras estatísticas relevantes -->
 
 <a href="/">Return to home page</a>
+<style>
+    /* Estilos para o título */
+    .intro h1 {
+        font-size: 36px;
+        color: #333;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* Estilos para os parágrafos com estatísticas */
+    .intro p {
+        font-size: 20px;
+        color: #666;
+        margin: 10px 0;
+    }
+
+    /* Estilos para o link "Return to home page" */
+    .intro a {
+        display: block;
+        text-align: center;
+        font-size: 18px;
+        color: #007bff; /* Azul do link */
+        text-decoration: none;
+        margin-top: 20px;
+    }
+</style>
