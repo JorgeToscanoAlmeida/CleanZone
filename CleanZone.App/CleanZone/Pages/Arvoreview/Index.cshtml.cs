@@ -6,17 +6,15 @@ namespace CleanZone.Pages.Arvoreview;
 [Authorize]
 public class IndexModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
     public readonly ApplicationDbContext _context;
     private readonly DateService _dateService;
     private readonly AreaRepository _areaRepository;
     private readonly DivisionRepositoy _divionRepositoy;
     private readonly ResidenceRepository _residenceRepository;
 
-    public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext context, DateService dateService, 
-        AreaRepository areaRepository,DivisionRepositoy divionRepositoy, ResidenceRepository residenceRepository)
+    public IndexModel(ApplicationDbContext context, DateService dateService,
+        AreaRepository areaRepository, DivisionRepositoy divionRepositoy, ResidenceRepository residenceRepository)
     {
-        _logger = logger;
         _context = context;
         _dateService = dateService;
         _areaRepository = areaRepository;

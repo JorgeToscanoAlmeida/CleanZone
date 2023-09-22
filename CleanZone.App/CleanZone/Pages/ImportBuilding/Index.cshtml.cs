@@ -6,10 +6,11 @@ namespace CleanZone.Pages.ImportBuilding;
 public class IndexModel : PageModel
 {
     private readonly ImportRepository _importRepository;
-
-    public IndexModel(ImportRepository importRepository)
+    private readonly ILogger<IndexModel> _logger;
+    public IndexModel(ImportRepository importRepository, ILogger<IndexModel> logger)
     {
         _importRepository = importRepository;
+        _logger = logger;
     }
     [BindProperty]
     public IFormFile ResidencyYamlFile { get; set; }
@@ -27,6 +28,7 @@ public class IndexModel : PageModel
                 }
                 catch (Exception ex)
                 {
+                    _logger.LogError(ex, "Erro por ter um ficheiro yaml mal formatado");
                     TempData["ErrorMessage"] = "Failed to import the divisions. Check the YAML format.";
                     return Page();
                 }
